@@ -6,60 +6,71 @@
 <title>💖 Bé cưới tui nhé? 💖</title>
 
 <style>
-/* ================= BODY ================ */
+/* RESET để mobile không tự thêm khoảng trống */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-  margin:0;
-  min-height:100vh;
   background: linear-gradient(135deg,#ffb6c1,#fff0f5);
-  display:block; /* FIX lệch màn hình 1 */
-  overflow-x: hidden;
-  overflow-y: auto;
   font-family:"Segoe UI", cursive;
   color:#e91e63;
   text-align:center;
+  overflow-x: hidden;
 }
 
-/* ============ KHUNG TRÒN ẢNH (MÀN 1) ============== */
-#slideshow{
-  width:260px;
-  height:260px;
-  border-radius:50%;
-  overflow:hidden;
+/* WRAPPER CĂN GIỮA MÀN HÌNH 1 */
+.screen1 {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;     /* Căn giữa theo chiều dọc */
+  align-items: center;          /* Căn giữa theo chiều ngang */
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+/* SLIDESHOW TRÒN */
+#slideshow {
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  overflow: hidden;
   box-shadow:0 0 20px rgba(255,182,193,0.8);
-  margin:60px auto 20px auto; /* căn giữa chuẩn */
-  position:relative;
+  position: relative;
 }
 
-#slideshow img{
+#slideshow img {
   position:absolute;
-  top:0;left:0;
-  width:100%;height:100%;
+  top:0; left:0;
+  width:100%; height:100%;
   object-fit:cover;
   opacity:0;
   transition:opacity 1.2s;
 }
 
-#slideshow img.active{
+#slideshow img.active {
   opacity:1;
 }
 
-h1{
-  font-size:2.2em;
-  margin:0 0 20px 0;
+h1 {
+  font-size: 1.9em;
+  margin-top: 20px;
   text-shadow:0 0 8px white;
 }
 
-/* ============== BUTTON WRAP (FIX LỆCH) ============== */
+/* BUTTON GROUP */
 .button-wrap {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  position: relative;
+  margin-top: 20px;
+  width: 200px;
   height: 50px;
+  position: relative;
 }
 
-button{
-  margin:10px;
+button {
   background-color:#ff69b4;
   border:none;
   color:white;
@@ -71,15 +82,11 @@ button{
   position:relative;
 }
 
-button:active{
-  transform:scale(0.9);
-}
-
 #noBtn {
   position:absolute;
 }
 
-/* ================ TIM BAY =============== */
+/* TIM BAY */
 .heart{
   position:fixed;
   bottom:0;
@@ -93,61 +100,48 @@ button:active{
   100%{ transform:translateY(-100vh) scale(1.8); opacity:0; }
 }
 
-/* ============ MÀN HÌNH THỨ 2 ============ */
+/* MÀN HÌNH 2 */
 #surpriseScreen {
   display:none;
-  position:absolute;
-  top:0;
-  left:0;
   width:100%;
   min-height:100vh;
   background:linear-gradient(135deg,#ffe0eb,#fff0f7);
-  overflow-y:auto;
-  padding-top:20px;
-  padding-bottom:40px;
+  padding:30px 0 40px 0;
 }
 
-/* ============ GALLERY ============ */
+/* GALLERY MÀN 2 */
 #gallery {
   width: 300px;
   height: 300px;
   border-radius: 20px;
   box-shadow: 0 0 15px #ffb6c1;
   overflow: hidden;
+  margin: 0 auto 20px auto;
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 20px auto;
-  background: #fff0f5;
 }
 
 #gallery img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  border-radius: 16px;
-  position: absolute;
-  opacity: 0;
-  transition: opacity 1.2s;
+  width:100%; height:100%;
+  object-fit:contain;
+  position:absolute;
+  opacity:0;
+  transition:opacity 1.2s;
 }
 
 #gallery img.active {
-  opacity: 1;
+  opacity:1;
 }
 
-/* ======= HỘP LỜI CHÚC ======== */
 #wishBox{
   background:white;
   padding:15px;
   border-radius:15px;
   width:85%;
   max-width:500px;
+  margin:auto;
   box-shadow:0 0 15px #ffc0d3;
   color:#e91e63;
-  min-height:120px;
   white-space:pre-wrap;
-  margin: 0 auto;
 }
 </style>
 </head>
@@ -155,18 +149,22 @@ button:active{
 <body>
 
 <!-- ========== MÀN HÌNH 1 ========== -->
-<div id="slideshow">
-  <img src="09b3634f-3528-4b7f-8b14-4c8b75df9d11.jpg" class="active">
-  <img src="20d10877-7b41-4d70-9921-a34baf6fa3b3.jpg">
-  <img src="655d7fa6-2662-47e4-a809-2ce6c2cef756.jpg">
-  <img src="9b62cd67-6494-4b1e-861e-afea79281ad6.jpg">
-</div>
+<div class="screen1">
 
-<h1>Bé cưới tui nhé? 💖</h1>
+  <div id="slideshow">
+    <img src="09b3634f-3528-4b7f-8b14-4c8b75df9d11.jpg" class="active">
+    <img src="20d10877-7b41-4d70-9921-a34baf6fa3b3.jpg">
+    <img src="655d7fa6-2662-47e4-a809-2ce6c2cef756.jpg">
+    <img src="9b62cd67-6494-4b1e-861e-afea79281ad6.jpg">
+  </div>
 
-<div class="button-wrap">
-  <button id="yesBtn">Dạ:3 💍</button>
-  <button id="noBtn">hog 😅</button>
+  <h1>Bé cưới tui nhé? 💖</h1>
+
+  <div class="button-wrap">
+    <button id="yesBtn">Dạ:3 💍</button>
+    <button id="noBtn">hog 😅</button>
+  </div>
+
 </div>
 
 <!-- ========== MÀN HÌNH 2 ========== -->
@@ -196,7 +194,7 @@ Tui thương bé Thư nhìu lắm 💖
 </div>
 
 <script>
-// ================= SLIDESHOW MÀN 1 ==================
+/* SLIDESHOW MÀN 1 */
 const slides = document.querySelectorAll('#slideshow img');
 let idx = 0;
 setInterval(()=>{
@@ -205,7 +203,7 @@ setInterval(()=>{
   slides[idx].classList.add('active');
 },3500);
 
-// ================= TIM BAY ==================
+/* TIM BAY */
 function createHeart(){
   const h=document.createElement('div');
   h.className='heart';
@@ -217,7 +215,7 @@ function createHeart(){
 }
 setInterval(createHeart,300);
 
-// ================= NÚT HOG ==================
+/* NÚT HOG */
 const no = document.getElementById('noBtn');
 function moveNo(){
   const x=Math.random()*(window.innerWidth-120);
@@ -228,18 +226,14 @@ function moveNo(){
 no.addEventListener('mouseover', moveNo);
 no.addEventListener('touchstart', moveNo);
 
-// ================= NÚT "DẠ" ==================
+/* NÚT "DẠ" */
 const yes = document.getElementById('yesBtn');
 yes.onclick = () => {
-  document.querySelector('h1').style.display='none';
-  document.getElementById('slideshow').style.display='none';
-  yes.style.display='none';
-  no.style.display='none';
-
+  document.querySelector('.screen1').style.display='none';
   document.getElementById('surpriseScreen').style.display='block';
 };
 
-// ================= SLIDESHOW MÀN 2 ==================
+/* SLIDESHOW MÀN 2 */
 const gal = document.querySelectorAll('#gallery img');
 let g = 0;
 setInterval(()=>{
