@@ -1,251 +1,255 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<meta charset="UTF-8">
+
+<!-- FIX LỖI LỆCH TRONG MESSENGER + GOOGLE APP -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
 <title>💖 Bé cưới tui nhé? 💖</title>
+
 <style>
 /* RESET */
-*{margin:0;padding:0;box-sizing:border-box}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-/* BODY */
-body{
+/* KHÓA MESSENGER / GOOGLE WEBVIEW ÉP ZOOM */
+html, body {
+  width: 100%;
+  height: 100%;
+  overscroll-behavior: none;
+  touch-action: manipulation;
+  -webkit-text-size-adjust: 100%;
   background: linear-gradient(135deg,#ffb6c1,#fff0f5);
-  font-family: "Segoe UI", cursive;
+  font-family:"Segoe UI", cursive;
   color:#e91e63;
-  text-align:center;
-  overflow-x:hidden;
-  min-height:100vh;
 }
 
-/* SCREEN 1: căn giữa an toàn trên mobile */
-.screen1{
-  width:100%;
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  padding:32px 16px;
+/* MÀN HÌNH 1 GIỮA CHUẨN */
+.screen1 {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0;
 }
 
-/* SLIDESHOW TRÒN */
-#slideshow{
-  width:240px;height:240px;border-radius:50%;overflow:hidden;
+/* KHUNG TRÒN SLIDESHOW */
+#slideshow {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  overflow: hidden;
   box-shadow:0 0 20px rgba(255,182,193,0.8);
-  position:relative;
+  position: relative;
+
+  /* FIX LỆCH TRONG MESSENGER / GOOGLE */
+  transform: translateZ(0);
 }
-#slideshow img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.2s}
-#slideshow img.active{opacity:1}
 
-h1{font-size:1.9rem;margin-top:18px;text-shadow:0 0 8px #fff}
+#slideshow img {
+  position:absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  opacity:0;
+  transition:opacity 1.2s;
+}
 
-/* BUTTON WRAP: giữ nút nằm ngang, relative để absolute positioning khi cần */
-.button-wrap{
-  margin-top:18px;
-  width:100%;
-  max-width:320px;
-  height:56px;
-  position:relative;
+#slideshow img.active { opacity:1; }
+
+h1 {
+  margin-top: 25px;
+  font-size: 2em;
+  text-shadow: 0 0 8px white;
+}
+
+/* BUTTON WRAP */
+.button-wrap {
+  margin-top: 15px;
+  width: 200px;
+  height: 50px;
+  position: relative;
   display:flex;
   justify-content:center;
-  align-items:center;
-  gap:18px;
 }
 
-/* nút mặc định: relative (không chồng lên nhau) */
-button{
-  background:#ff69b4;
-  color:#fff;
+button {
+  background-color:#ff69b4;
+  color:white;
+  padding:12px 25px;
+  font-size:1.1em;
+  border-radius:25px;
   border:none;
-  padding:12px 24px;
-  border-radius:28px;
-  font-size:1.05rem;
-  box-shadow:0 6px 18px rgba(255,182,193,0.45);
   cursor:pointer;
-  z-index:10;           /* đặt cao hơn heart */
-  position:relative;    /* default */
-  transition:transform .12s;
-}
-button:active{transform:scale(.95)}
-
-/* noBtn khi set absolute sẽ dùng class moved */
-#noBtn.moved{position:absolute}
-
-/* HEARTS (nằm phía dưới các nút) */
-.heart{
-  position:fixed;
-  bottom:0;
-  font-size:22px;
-  color:#ff69b4;
-  animation:floatUp 5s linear infinite;
-  z-index:2;
-}
-@keyframes floatUp{
-  0%{transform:translateY(0) scale(1);opacity:1}
-  100%{transform:translateY(-100vh) scale(1.8);opacity:0}
+  box-shadow:0 0 10px #ffb6c1;
+  margin:0 5px;
 }
 
-/* SURPRISE SCREEN (màn 2) */
-#surpriseScreen{
-  display:none;
-  width:100%;
-  min-height:100vh;
-  background:linear-gradient(135deg,#ffe0eb,#fff0f7);
-  padding:30px 16px 60px;
+#noBtn { position:absolute; }
+
+/* ============================================
+   TIM BAY
+============================================ */
+.heart {
+  position: fixed;
+  bottom: 0;
+  font-size: 20px;
+  animation: floatUp 5s linear infinite;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-100vh) scale(1.8); opacity: 0; }
+}
+
+/* ============================================
+   MÀN HÌNH 2
+============================================ */
+#surpriseScreen {
+  display: none;
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(135deg,#ffe0eb,#fff0f7);
+  padding: 30px 0 50px 0;
 }
 
 /* GALLERY */
-#gallery{width:300px;height:300px;border-radius:20px;margin:0 auto 18px;overflow:hidden;box-shadow:0 0 15px #ffb6c1;position:relative;background:#fff0f5}
-#gallery img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity 1.2s}
-#gallery img.active{opacity:1}
-
-/* WISH BOX */
-#wishBox{
-  background:#fff;padding:18px;border-radius:16px;box-shadow:0 8px 20px rgba(0,0,0,.05);
-  width:90%;max-width:520px;margin:0 auto;color:#e91e63;white-space:pre-wrap;font-size:1rem;line-height:1.6;text-align:left;
+#gallery {
+  width: 300px;
+  height: 300px;
+  margin: auto;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  box-shadow:0 0 15px #ffb6c1;
 }
 
-/* responsive nhỏ */
-@media (max-width:360px){
-  #slideshow{width:200px;height:200px}
-  h1{font-size:1.5rem}
-  .button-wrap{max-width:280px;gap:12px}
-  button{padding:10px 18px;font-size:.98rem}
-  #gallery{width:260px;height:260px}
+#gallery img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  position: absolute;
+  opacity: 0;
+  transition: opacity 1.2s;
+}
+
+#gallery img.active { opacity:1; }
+
+/* WISH BOX */
+#wishBox {
+  width: 85%;
+  max-width: 500px;
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  margin: 20px auto 0 auto;
+  color:#e91e63;
+  box-shadow:0 0 15px #ffc0d3;
+  white-space:pre-wrap;
 }
 </style>
 </head>
+
 <body>
 
-<!-- MÀN HÌNH 1 -->
-<div class="screen1" id="screen1">
+<!-- ===================== MÀN HÌNH 1 ===================== -->
+<div class="screen1">
+
   <div id="slideshow">
-    <img src="09b3634f-3528-4b7f-8b14-4c8b75df9d11.jpg" class="active" alt="">
-    <img src="20d10877-7b41-4d70-9921-a34baf6fa3b3.jpg" alt="">
-    <img src="655d7fa6-2662-47e4-a809-2ce6c2cef756.jpg" alt="">
-    <img src="9b62cd67-6494-4b1e-861e-afea79281ad6.jpg" alt="">
+    <img src="09b3634f-3528-4b7f-8b14-4c8b75df9d11.jpg" class="active">
+    <img src="20d10877-7b41-4d70-9921-a34baf6fa3b3.jpg">
+    <img src="655d7fa6-2662-47e4-a809-2ce6c2cef756.jpg">
+    <img src="9b62cd67-6494-4b1e-861e-afea79281ad6.jpg">
   </div>
 
   <h1>Bé cưới tui nhé? 💖</h1>
 
-  <div class="button-wrap" id="buttonWrap">
+  <div class="button-wrap">
     <button id="yesBtn">Dạ:3 💍</button>
     <button id="noBtn">hog 😅</button>
   </div>
+
 </div>
 
-<!-- MÀN HÌNH 2 -->
+<!-- ===================== MÀN HÌNH 2 ===================== -->
 <div id="surpriseScreen">
+
   <div id="gallery">
-    <img src="a773b4b9-e012-465b-876d-8b850ae62647.jpg" class="active" alt="">
-    <img src="bc45c61b-20d4-4ca4-87c6-c24a9a17293d.jpg" alt="">
-    <img src="e5212d85-668f-4fb6-bf64-df931b159fb1.jpg" alt="">
-    <img src="fd333211-a712-4d36-8911-8b67417667f9.jpg" alt="">
+    <img src="a773b4b9-e012-465b-876d-8b850ae62647.jpg" class="active">
+    <img src="bc45c61b-20d4-4ca4-87c6-c24a9a17293d.jpg">
+    <img src="e5212d85-668f-4fb6-bf64-df931b159fb1.jpg">
+    <img src="fd333211-a712-4d36-8911-8b67417667f9.jpg">
   </div>
 
   <div id="wishBox">
-Vậy là đã gần 6 tháng mình quen nhau rùi ha.  
-Thời gian qua tui vs Thư đã có biết bao nhiêu là kỷ niệm đẹp, vui cũng có mà cãi nhau cũng không ít.  
+Vậy là đã gần 6 tháng mình quen nhau rùi ha.
+Thời gian qua tui vs Thư đã có biết bao nhiêu là kỷ niệm đẹp,
+vui cũng có mà cãi nhau cũng không ít.
 
-Với tui thì quãng thời gian ấy thật sự rất hạnh phúc và ý nghĩa.  
+Với tui thì quãng thời gian ấy thật sự rất hạnh phúc và ý nghĩa.
 
-Bé Thư cũng đã đồng ý cưới tui rùi.  
-Tui hứa tui sẽ không chỉ là 1 kỷ niệm đẹp trong ký ức của Thư, mà sẽ là mảnh ghép của cuộc đời Thư đang tìm kiếm.  
+Bé Thư cũng đã đồng ý cưới tui rùi.
+Tui hứa tui sẽ không chỉ là 1 kỷ niệm đẹp trong ký ức của Thư,
+mà sẽ là mảnh ghép của cuộc đời Thư đang tìm kiếm.
 
 Tui thương bé Thư nhìu lắm 💖
   </div>
+
 </div>
 
 <script>
 /* SLIDESHOW MÀN 1 */
 const slides = document.querySelectorAll('#slideshow img');
-let si = 0;
+let idx = 0;
 setInterval(()=>{
-  slides[si].classList.remove('active');
-  si=(si+1)%slides.length;
-  slides[si].classList.add('active');
+  slides[idx].classList.remove('active');
+  idx = (idx + 1) % slides.length;
+  slides[idx].classList.add('active');
 },3500);
-
-/* SLIDESHOW MÀN 2 */
-const gal = document.querySelectorAll('#gallery img');
-let gi = 0;
-setInterval(()=>{
-  gal[gi].classList.remove('active');
-  gi=(gi+1)%gal.length;
-  gal[gi].classList.add('active');
-},4000);
 
 /* TIM BAY */
 function createHeart(){
   const h=document.createElement('div');
   h.className='heart';
   h.textContent='💖';
-  h.style.left = Math.random()*90 + 'vw';
-  h.style.fontSize = (Math.random()*20+14) + 'px';
+  h.style.left=Math.random()*100+'vw';
+  h.style.fontSize=(Math.random()*20+15)+'px';
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),5000);
 }
-setInterval(createHeart,350);
+setInterval(createHeart,300);
 
-/* NÚT HOG: ban đầu vẫn ở vị trí flow bình thường (position:relative).
-   Khi người dùng hover/touch, chuyển sang absolute bên trong buttonWrap,
-   chọn vị trí ngẫu nhiên không chồng lấp yesBtn và trong bounds của buttonWrap.
-*/
-const noBtn = document.getElementById('noBtn');
-const yesBtn = document.getElementById('yesBtn');
-const wrap = document.getElementById('buttonWrap');
-
-function placeNoBtnRandom(){
-  // ensure wrap rect
-  const wrapRect = wrap.getBoundingClientRect();
-  const yesRect = yesBtn.getBoundingClientRect();
-  // calculate area inside wrap to place button (leaving margins)
-  const padding = 8;
-  const maxLeft = wrapRect.width - noBtn.offsetWidth - padding;
-  const maxTop = wrapRect.height - noBtn.offsetHeight - padding;
-
-  // choose candidate until it's not overlapping yesBtn (in viewport coords)
-  let attempts = 0;
-  let left, top;
-  do {
-    left = Math.floor(Math.random() * Math.max(1, Math.round(maxLeft + 1)));
-    top  = Math.floor(Math.random() * Math.max(1, Math.round(maxTop + 1)));
-    attempts++;
-    // compute candidate's viewport rect
-    const candidateLeftV = wrapRect.left + left;
-    const candidateTopV = wrapRect.top + top;
-    const candidateRightV = candidateLeftV + noBtn.offsetWidth;
-    const candidateBottomV = candidateTopV + noBtn.offsetHeight;
-    // simple overlap check with yesRect
-    const overlap = !(candidateRightV < yesRect.left || candidateLeftV > yesRect.right || candidateBottomV < yesRect.top || candidateTopV > yesRect.bottom);
-    if(!overlap) break;
-  } while(attempts < 12);
-
-  // set absolute inside wrap (left/top relative to wrap)
-  noBtn.classList.add('moved');
-  noBtn.style.left = left + 'px';
-  noBtn.style.top  = top + 'px';
-  // ensure z-order above hearts
-  noBtn.style.zIndex = 15;
+/* NÚT HOG */
+const no = document.getElementById('noBtn');
+function moveNo(){
+  const x=Math.random()*(window.innerWidth-130);
+  const y=Math.random()*(window.innerHeight-80);
+  no.style.left=x+'px';
+  no.style.top=y+'px';
 }
+no.addEventListener('mouseover', moveNo);
+no.addEventListener('touchstart', moveNo);
 
-// mouseover for desktop
-noBtn.addEventListener('mouseover', (e)=>{
-  // only move if not already moved or every time? we'll move each hover
-  placeNoBtnRandom();
-});
-// touchstart for mobile: prevent immediate jump on first touch (treat as move)
-noBtn.addEventListener('touchstart', (e)=>{
-  e.preventDefault();
-  placeNoBtnRandom();
-}, {passive:false});
-
-// NÚT DẠ: chuyển màn hình
-yesBtn.addEventListener('click', ()=>{
-  document.getElementById('screen1').style.display='none';
+/* NÚT ĐỒNG Ý */
+document.getElementById('yesBtn').onclick = () => {
+  document.querySelector('.screen1').style.display='none';
   document.getElementById('surpriseScreen').style.display='block';
-});
+};
+
+/* SLIDESHOW MÀN 2 */
+const gal = document.querySelectorAll('#gallery img');
+let g = 0;
+setInterval(()=>{
+  gal[g].classList.remove('active');
+  g = (g+1)%gal.length;
+  gal[g].classList.add('active');
+},4000);
 </script>
 
 </body>
